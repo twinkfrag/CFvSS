@@ -9,11 +9,13 @@ namespace CocoroFunctionVerScreenShot
 
         public void RegisterHotKey()
         {
-            IO.LoadHotKeySettings(out modKey_alt, out modKey_ctrl, out modKey_shift, out modKey_win, out key);
+            SettingsForm.LoadHotKeySettings(out modKey_alt, out modKey_ctrl, out modKey_shift, out modKey_win, out key);
             if (modKey_alt) this.modKey += MOD_ALT;
             if (modKey_ctrl) this.modKey += MOD_CONTROL;
             if (modKey_shift) this.modKey += MOD_SHIFT;
             if (modKey_win) this.modKey += MOD_WIN;
+
+            Console.WriteLine(modKey);
 
             this.hotKeyId = (int)((modKey * 0x100) | key);
             this.hotKeyLParam = new IntPtr(modKey | (key * 0x10000));

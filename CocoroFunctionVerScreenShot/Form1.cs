@@ -12,12 +12,16 @@ namespace CocoroFunctionVerScreenShot
 {
     public partial class Form1 : Form
     {
+        SettingsForm st;
+
         public Form1()
         {
             InitializeComponent();
             this.FormClosing += Form1_FormClosing;
             ShowInTaskbar = false;
             WindowState = FormWindowState.Minimized;
+
+            st = new SettingsForm();
         }
 
         void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -36,6 +40,11 @@ namespace CocoroFunctionVerScreenShot
         {
             this.Close();
             Application.Exit();
+        }
+
+        private void settingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            st.Show();
         }
 
         private void Form1_Load(object sender, EventArgs e)

@@ -85,13 +85,5 @@ namespace CocoroFunctionVerScreenShot
 
             fullPath = Settings.Default.Path + fileName + ".png";
         }
-
-        public static void LoadHotKeySettings(out bool ModKey_Alt, out bool ModKey_Ctrl, out bool ModKey_Shift, out bool ModKey_Win, out int HotKey){
-            ModKey_Alt = Settings.Default.ModKey_Alt;
-            ModKey_Ctrl = Settings.Default.ModKey_Ctrl;
-            ModKey_Shift = Settings.Default.ModKey_Shift;
-            ModKey_Win = Settings.Default.ModKey_Win;
-            HotKey = (int)Settings.Default.HotKey;
-        }
     }
 }
