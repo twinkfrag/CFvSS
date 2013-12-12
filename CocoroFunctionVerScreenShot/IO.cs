@@ -3,11 +3,17 @@ using System.Runtime.InteropServices;
 using System.Text;
 using CocoroFunctionVerScreenShot.Properties;
 using System.Text.RegularExpressions;
+using System.Drawing.Imaging;
 
 namespace CocoroFunctionVerScreenShot
 {
     class IO
     {
+        public enum FileType
+        {
+            Png, Jpg, Bmp
+        }
+
         /// <summary>
         /// win32API呼び出し
         /// </summary>
@@ -43,6 +49,8 @@ namespace CocoroFunctionVerScreenShot
 
         public IntPtr active;
         public string fullPath;
+        public ImageFormat imageFormat;
+        public string imageFormatExt;
 
         public IO()
         {
@@ -83,7 +91,23 @@ namespace CocoroFunctionVerScreenShot
             fileName = Regex.Replace(fileName, Settings.Default.Regex_in, Settings.Default.Regex_out);
             Console.WriteLine(fileName);
 
-            fullPath = Settings.Default.Path + fileName + ".png";
+            switch (Settings.Default.FileType)
+            {
+                case (int)FileType.Png:
+                    imageFormat = ImageFormat.Png;
+                    imageFormatExt = ".png";
+                    break;
+                case (int)FileType.Jpg:
+                    imageFormat = ImageFormat.Jpeg;
+                    imageFormatExt = ".jpg";
+                    break;
+                case (int)FileType.Bmp:
+                    imageFormat = ImageFormat.Bmp;
+                    imageFormatExt = ".bmp";
+                    break;
+            }
+
+            fullPath = Settings.Default.Path + fileName + imageFormatExt;
         }
     }
 }

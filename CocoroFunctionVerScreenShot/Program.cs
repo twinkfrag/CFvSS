@@ -16,9 +16,10 @@ namespace CocoroFunctionVerScreenShot
 
             HKObject = new HotKey();
             HKObject.RegisterHotKey();
-            Console.WriteLine("起動しました");
-            Application.Run(new Form1());
+            mainForm = new NotifyIconForm();
+            Application.Run(mainForm);
         }
+        public static NotifyIconForm mainForm;
         public static HotKey HKObject;
         public static IO InObject;
 

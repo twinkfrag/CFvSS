@@ -32,11 +32,19 @@ namespace CocoroFunctionVerScreenShot
             //filenameからディレクトリを抜き出し存在チェック
             System.Text.RegularExpressions.Regex dirEx = new System.Text.RegularExpressions.Regex(@".*\\");
             string dir = dirEx.Match(filename).ToString();
-            if (!System.IO.Directory.Exists(dir)) System.IO.Directory.CreateDirectory(dir);
-
-            using (System.IO.FileStream file = new System.IO.FileStream(filename, System.IO.FileMode.Create))
+            try
             {
-                bmp.Save(file, ImageFormat.Png);
+                if (!System.IO.Directory.Exists(dir)) System.IO.Directory.CreateDirectory(dir);
+
+                using (System.IO.FileStream file = new System.IO.FileStream(filename, System.IO.FileMode.Create))
+                {
+                    bmp.Save(file, Program.InObject.imageFormat);
+                }
+            }
+            catch (ArgumentException e)
+            {
+                Program.mainForm.ShowBalloonTip(10000, "エラー！", "ファイルの書き込みに失敗しました。", System.Windows.Forms.ToolTipIcon.Error);
+                e.ToString();
             }
         }
     }
