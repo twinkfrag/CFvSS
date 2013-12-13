@@ -37,7 +37,7 @@ namespace CocoroFunctionVerScreenShot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("shot-%yy%MM%dd-%HH%mm%ss-%wt")]
+        [global::System.Configuration.DefaultSettingValueAttribute("%wt - %yy%MM%dd-%HH%mm%ss")]
         public string FileName {
             get {
                 return ((string)(this["FileName"]));
@@ -121,7 +121,7 @@ namespace CocoroFunctionVerScreenShot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("$1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("$1\\$0")]
         public string Regex_out {
             get {
                 return ((string)(this["Regex_out"]));

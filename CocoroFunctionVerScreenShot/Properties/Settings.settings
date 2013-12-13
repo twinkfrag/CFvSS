@@ -6,7 +6,7 @@
       <Value Profile="(Default)">.\screenshot\</Value>
     </Setting>
     <Setting Name="FileName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">shot-%yy%MM%dd-%HH%mm%ss-%wt</Value>
+      <Value Profile="(Default)">%wt - %yy%MM%dd-%HH%mm%ss</Value>
     </Setting>
     <Setting Name="HotKey" Type="System.Windows.Forms.Keys" Scope="User">
       <Value Profile="(Default)">T</Value>
@@ -27,7 +27,7 @@
       <Value Profile="(Default)">^([^ ]+).*</Value>
     </Setting>
     <Setting Name="Regex_out" Type="System.String" Scope="User">
-      <Value Profile="(Default)">$1</Value>
+      <Value Profile="(Default)">$1\$0</Value>
     </Setting>
     <Setting Name="FileType" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
