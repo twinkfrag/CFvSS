@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace CocoroFunctionVerScreenShot
+namespace net.twinkfrag.CFvSS
 {
     static class Program
     {

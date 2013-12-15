@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
-using CocoroFunctionVerScreenShot.Properties;
+using net.twinkfrag.CFvSS.Properties;
 using System.Text.RegularExpressions;
 using System.Drawing.Imaging;
 
-namespace CocoroFunctionVerScreenShot
+namespace net.twinkfrag.CFvSS
 {
     class IO
     {
@@ -55,6 +55,7 @@ namespace CocoroFunctionVerScreenShot
         public IO()
         {
             active = GetForegroundWindow();
+            string fileDirectory = Settings.Default.Path;
             string fileName;
             string windowText = "";
             string windowPath = "";
@@ -70,12 +71,7 @@ namespace CocoroFunctionVerScreenShot
 
             Console.WriteLine(windowText);
             Console.WriteLine(windowPath);
-            /*
-        int pid = 0;
-        GetWindowThreadProcessId(active, out pid);
-        System.Diagnostics.Process pr = System.Diagnostics.Process.GetProcessById(pid);
-        windowPath = pr.MainModule.FileName.ToString();
-         */
+
             string yyyy = DateTime.Now.ToString("yyyy");
             string yy = DateTime.Now.ToString("yy");
             string MM = DateTime.Now.ToString("MM");
@@ -107,7 +103,9 @@ namespace CocoroFunctionVerScreenShot
                     break;
             }
 
-            fullPath = Settings.Default.Path + fileName + imageFormatExt;
+            if(!Regex.IsMatch(fileDirectory, @"\\$")) fileDirectory = fileDirectory + @"\";
+
+            fullPath = fileDirectory + fileName + imageFormatExt;
         }
     }
 }

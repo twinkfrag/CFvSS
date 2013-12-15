@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 
-namespace CocoroFunctionVerScreenShot
+namespace net.twinkfrag.CFvSS
 {
     class ScreenShot
     {

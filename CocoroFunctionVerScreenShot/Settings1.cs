@@ -1,4 +1,4 @@
-﻿namespace CocoroFunctionVerScreenShot.Properties {
+﻿namespace net.twinkfrag.CFvSS.Properties {
     
     
     // このクラスでは設定クラスでの特定のイベントを処理することができます:
