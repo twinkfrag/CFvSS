@@ -16,13 +16,13 @@ namespace net.twinkfrag.CFvSS
 		{
 			//アクティブウィンドウの取得
 			IO.RECT r;
-			IntPtr active = Program.InObject.active;
+			var active = Program.InObject.active;
 			IO.GetWindowRect(active, out r);
-			Rectangle rect = new Rectangle(r.left, r.top, r.right - r.left, r.bottom - r.top);
+			var rect = new Rectangle(r.left, r.top, r.right - r.left, r.bottom - r.top);
 
-			using (Bitmap bmp = new Bitmap(rect.Width, rect.Height, PixelFormat.Format32bppArgb))
+			using (var bmp = new Bitmap(rect.Width, rect.Height, PixelFormat.Format32bppArgb))
 			{
-				using (Graphics g = Graphics.FromImage(bmp))
+				using (var g = Graphics.FromImage(bmp))
 				{
 					g.CopyFromScreen(rect.X, rect.Y, 0, 0, rect.Size, CopyPixelOperation.SourceCopy);
 				}
@@ -33,41 +33,37 @@ namespace net.twinkfrag.CFvSS
 		public static void Save(Bitmap bmp, string filename)
 		{
 			//filenameからディレクトリを抜き出し存在チェック
-			Regex dirEx = new Regex(@".*\\");
-			string dir = dirEx.Match(filename).ToString();
+			var dirEx = new Regex(@".*\\");
+			var dir = dirEx.Match(filename).ToString();
 			try
 			{
 				if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
 
-				using (FileStream file = new FileStream(filename, FileMode.Create))
+				using (var file = new FileStream(filename, FileMode.Create))
 				{
 					bmp.Save(file, Program.InObject.imageFormat);
 				}
 				Program.mainForm.ShowBalloonTip(10000, "CFvSS", "撮影に成功しました", ToolTipIcon.Info);
 			}
-			catch (ArgumentException e)
+			catch (ArgumentException)
 			{
 				//ファイル名に * ? | < >
 				Program.mainForm.ShowBalloonTip(10000, "CFvSS", "書き込み関数エラー", ToolTipIcon.Error);
-				e.ToString();
 			}
-			catch (UnauthorizedAccessException e)
+			catch (UnauthorizedAccessException)
 			{
 				//書き込み権限不足
 				Program.mainForm.ShowBalloonTip(10000, "CFvSS", "ファイルエラー", ToolTipIcon.Error);
-				e.ToString();
 			}
-			catch (DirectoryNotFoundException e)
+			catch (DirectoryNotFoundException)
 			{
-				//ファイル名に / (\と違って処理していないため)
+				//ファイル名に / 
 				Program.mainForm.ShowBalloonTip(10000, "CFvSS", "ディレクトリエラー", ToolTipIcon.Error);
-				e.ToString();
 			}
-			catch (NotSupportedException e)
+			catch (NotSupportedException)
 			{
 				//ファイル名に :
 				Program.mainForm.ShowBalloonTip(10000, "CFvSS", "書き込み失敗", ToolTipIcon.Error);
-				e.ToString();
 			}
 		}
 	}
