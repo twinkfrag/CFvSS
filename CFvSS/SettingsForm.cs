@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using net.twinkfrag.CFvSS.Properties;
-using System.Text.RegularExpressions;
 
 namespace net.twinkfrag.CFvSS
 {
@@ -17,34 +10,34 @@ namespace net.twinkfrag.CFvSS
 		public SettingsForm()
 		{
 			InitializeComponent();
-			this.FormClosing += SettingsForm_FormClosing;
+			FormClosing += SettingsForm_FormClosing;
 
-			settingLoad();
+			SettingLoad();
 		}
 
 		public new void Hide()
 		{
-			this.WindowState = FormWindowState.Minimized;
+			WindowState = FormWindowState.Minimized;
 			ShowInTaskbar = false;
 			base.Hide();
 		}
 		public new void Show()
 		{
-			this.WindowState = FormWindowState.Normal;
+			WindowState = FormWindowState.Normal;
 			ShowInTaskbar = true;
 			base.Show();
 		}
 
-		public static void LoadHotKeySettings(out bool ModKey_Alt, out bool ModKey_Ctrl, out bool ModKey_Shift, out bool ModKey_Win, out int HotKey)
+		public static void LoadHotKeySettings(out bool isModKeyAlt, out bool isModKeyCtrl, out bool isModKeyShift, out bool isModKeyWin, out int keyCode)
 		{
-			ModKey_Alt = Settings.Default.ModKey_Alt;
-			ModKey_Ctrl = Settings.Default.ModKey_Ctrl;
-			ModKey_Shift = Settings.Default.ModKey_Shift;
-			ModKey_Win = Settings.Default.ModKey_Win;
-			HotKey = (int)Settings.Default.HotKey;
+			isModKeyAlt = Settings.Default.ModKey_Alt;
+			isModKeyCtrl = Settings.Default.ModKey_Ctrl;
+			isModKeyShift = Settings.Default.ModKey_Shift;
+			isModKeyWin = Settings.Default.ModKey_Win;
+			keyCode = (int)Settings.Default.HotKey;
 		}
 
-		private void settingLoad()
+		private void SettingLoad()
 		{
 			checkBoxAlt.Checked = Settings.Default.ModKey_Alt;
 			checkBoxCtrl.Checked = Settings.Default.ModKey_Ctrl;
@@ -58,7 +51,7 @@ namespace net.twinkfrag.CFvSS
 			fileTypeComboBox.SelectedIndex = (int)(IO.FileType)Settings.Default.FileType;
 		}
 
-		private void settingSave()
+		private void SettingSave()
 		{
 			Settings.Default.ModKey_Alt = checkBoxAlt.Checked;
 			Settings.Default.ModKey_Ctrl = checkBoxCtrl.Checked;
@@ -71,10 +64,10 @@ namespace net.twinkfrag.CFvSS
 			Settings.Default.Regex_out = regexOutBox.Text;
 			Settings.Default.FileType = (int)(IO.FileType)fileTypeComboBox.SelectedIndex;
 
-			Program.HKObject.UnregisterHotKey();
+			Program.HkObject.UnregisterHotKey();
 			Settings.Default.Save();
-			Program.HKObject = new HotKey();
-			Program.HKObject.RegisterHotKey();
+			Program.HkObject = new HotKey();
+			Program.HkObject.RegisterHotKey();
 		}
 
 		void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -85,13 +78,13 @@ namespace net.twinkfrag.CFvSS
 
 		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			this.Close();
+			Close();
 			Application.Exit();
 		}
 
 		private void Save_Click(object sender, EventArgs e)
 		{
-			settingSave();
+			SettingSave();
 		}
 
 		private void FolderSelect_Click(object sender, EventArgs e)
@@ -103,20 +96,21 @@ namespace net.twinkfrag.CFvSS
 
 		private void regexTestInBox_TextChanged(object sender, EventArgs e)
 		{
-			string yyyy = DateTime.Now.ToString("yyyy");
-			string yy = DateTime.Now.ToString("yy");
-			string MM = DateTime.Now.ToString("MM");
-			string dd = DateTime.Now.ToString("dd");
-			string HH = DateTime.Now.ToString("HH");
-			string mm = DateTime.Now.ToString("mm");
-			string ss = DateTime.Now.ToString("ss");
+			// ReSharper disable InconsistentNaming
+			var yyyy = DateTime.Now.ToString("yyyy");
+			var yy = DateTime.Now.ToString("yy");
+			var MM = DateTime.Now.ToString("MM");
+			var dd = DateTime.Now.ToString("dd");
+			var HH = DateTime.Now.ToString("HH");
+			var mm = DateTime.Now.ToString("mm");
+			var ss = DateTime.Now.ToString("ss");
+			// ReSharper restore InconsistentNaming
 
-			string fileName = "";
-			string wt = ((TextBox)sender).Text;
-			fileName = fileNameBox.Text.Replace(@"%yyyy", yyyy)
-				.Replace(@"%yy", yy).Replace(@"%MM", MM).Replace(@"%dd", dd)
-				.Replace(@"%HH", HH).Replace(@"%mm", mm).Replace(@"%ss", ss)
-				.Replace(@"%wt", wt);
+			var wt = ((TextBox)sender).Text;
+			var fileName = fileNameBox.Text.Replace(@"%yyyy", yyyy)
+										 .Replace(@"%yy", yy).Replace(@"%MM", MM).Replace(@"%dd", dd)
+										 .Replace(@"%HH", HH).Replace(@"%mm", mm).Replace(@"%ss", ss)
+										 .Replace(@"%wt", wt);
 			fileName = Regex.Replace(fileName, "[\\/\":*<>|]", "_");
 			fileName = Regex.Replace(fileName, Settings.Default.Regex_in, Settings.Default.Regex_out);
 
@@ -125,7 +119,7 @@ namespace net.twinkfrag.CFvSS
 
 		private void ResetButton_Click(object sender, EventArgs e)
 		{
-			settingLoad();
+			SettingLoad();
 		}
 	}
 }

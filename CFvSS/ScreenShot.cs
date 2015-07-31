@@ -16,7 +16,7 @@ namespace net.twinkfrag.CFvSS
 		{
 			//アクティブウィンドウの取得
 			IO.RECT r;
-			var active = Program.InObject.active;
+			var active = Program.IoObject.Active;
 			IO.GetWindowRect(active, out r);
 			var rect = new Rectangle(r.left, r.top, r.right - r.left, r.bottom - r.top);
 
@@ -26,7 +26,7 @@ namespace net.twinkfrag.CFvSS
 				{
 					g.CopyFromScreen(rect.X, rect.Y, 0, 0, rect.Size, CopyPixelOperation.SourceCopy);
 				}
-				Save(bmp, Program.InObject.fullPath);
+				Save(bmp, Program.IoObject.FullPath);
 			}
 		}
 
@@ -41,29 +41,29 @@ namespace net.twinkfrag.CFvSS
 
 				using (var file = new FileStream(filename, FileMode.Create))
 				{
-					bmp.Save(file, Program.InObject.imageFormat);
+					bmp.Save(file, Program.IoObject.ImageFormat);
 				}
-				Program.mainForm.ShowBalloonTip(10000, "CFvSS", "撮影に成功しました", ToolTipIcon.Info);
+				Program.MainForm.ShowBalloonTip(10000, "CFvSS", "撮影に成功しました", ToolTipIcon.Info);
 			}
 			catch (ArgumentException)
 			{
 				//ファイル名に * ? | < >
-				Program.mainForm.ShowBalloonTip(10000, "CFvSS", "書き込み関数エラー", ToolTipIcon.Error);
+				Program.MainForm.ShowBalloonTip(10000, "CFvSS", "書き込み関数エラー", ToolTipIcon.Error);
 			}
 			catch (UnauthorizedAccessException)
 			{
 				//書き込み権限不足
-				Program.mainForm.ShowBalloonTip(10000, "CFvSS", "ファイルエラー", ToolTipIcon.Error);
+				Program.MainForm.ShowBalloonTip(10000, "CFvSS", "ファイルエラー", ToolTipIcon.Error);
 			}
 			catch (DirectoryNotFoundException)
 			{
 				//ファイル名に / 
-				Program.mainForm.ShowBalloonTip(10000, "CFvSS", "ディレクトリエラー", ToolTipIcon.Error);
+				Program.MainForm.ShowBalloonTip(10000, "CFvSS", "ディレクトリエラー", ToolTipIcon.Error);
 			}
 			catch (NotSupportedException)
 			{
 				//ファイル名に :
-				Program.mainForm.ShowBalloonTip(10000, "CFvSS", "書き込み失敗", ToolTipIcon.Error);
+				Program.MainForm.ShowBalloonTip(10000, "CFvSS", "書き込み失敗", ToolTipIcon.Error);
 			}
 		}
 	}

@@ -14,18 +14,19 @@ namespace net.twinkfrag.CFvSS
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 
-			HKObject = new HotKey();
-			HKObject.RegisterHotKey();
-			mainForm = new NotifyIconForm();
-			Application.Run(mainForm);
+			HkObject = new HotKey();
+			HkObject.RegisterHotKey();
+			MainForm = new NotifyIconForm();
+			Application.Run(MainForm);
 		}
-		public static NotifyIconForm mainForm;
-		public static HotKey HKObject;
-		public static IO InObject;
+
+		internal static NotifyIconForm MainForm { get; private set; }
+		internal static HotKey HkObject { get; set; }
+		internal static IO IoObject { get; set; }
 
 		internal static void Closing()
 		{
-			HKObject.UnregisterHotKey();
+			HkObject.UnregisterHotKey();
 		}
 	}
 }
