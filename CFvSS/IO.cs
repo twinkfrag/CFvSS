@@ -4,6 +4,7 @@ using System.Text;
 using net.twinkfrag.CFvSS.Properties;
 using System.Text.RegularExpressions;
 using System.Drawing.Imaging;
+using static net.twinkfrag.CFvSS.NativeMethods;
 // ReSharper disable InconsistentNaming
 
 namespace net.twinkfrag.CFvSS
@@ -14,40 +15,6 @@ namespace net.twinkfrag.CFvSS
 		{
 			Png, Jpg, Bmp
 		}
-
-		/// <summary>
-		/// win32API呼び出し
-		/// </summary>
-		[StructLayout(LayoutKind.Sequential, Pack = 4)]
-		// ReSharper disable once InconsistentNaming
-		public struct RECT
-		{
-			public int left;
-			public int top;
-			public int right;
-			public int bottom;
-		}
-
-		[DllImport("user32.dll")]
-		public extern static int RegisterHotKey(IntPtr hWnd, int id, int modKey, int key);
-
-		[DllImport("user32.dll")]
-		public extern static int UnregisterHotKey(IntPtr hWnd, int id);
-
-		[DllImport("user32.dll")]
-		public static extern int GetWindowRect(IntPtr hWnd, out RECT rect);
-
-		[DllImport("user32.dll")]
-		public extern static IntPtr GetForegroundWindow();
-
-		[DllImport("user32.dll")]
-		public extern static int GetWindowText(IntPtr hWnd, StringBuilder str, int nMaxCount);
-
-		[DllImport("user32.dll")]
-		public extern static int GetWindowThreadProcessId(IntPtr hWnd, out int pid);
-
-		[DllImport("kernel32.dll")]
-		public extern static int GetModuleFileName(IntPtr hWnd, out StringBuilder str, int nMaxCount);
 
 		public IntPtr Active { get; private set; }
 		public string FullPath { get; private set; }

@@ -15,10 +15,8 @@ namespace net.twinkfrag.CFvSS
 		public static void Shot()
 		{
 			//アクティブウィンドウの取得
-			IO.RECT r;
 			var active = Program.IoObject.Active;
-			IO.GetWindowRect(active, out r);
-			var rect = new Rectangle(r.left, r.top, r.right - r.left, r.bottom - r.top);
+			var rect = WindowHelper.GetWindowRectangle(active);
 
 			using (var bmp = new Bitmap(rect.Width, rect.Height, PixelFormat.Format32bppArgb))
 			{

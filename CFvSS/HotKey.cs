@@ -20,12 +20,12 @@ namespace net.twinkfrag.CFvSS
 			hotKeyId = (modKey * 0x100) | keyCode;
 			hotKeyLParam = new IntPtr(modKey | (keyCode * 0x10000));
 
-			IO.RegisterHotKey(Handle, WM_HOTKEY, modKey, keyCode);
+			NativeMethods.RegisterHotKey(Handle, WM_HOTKEY, modKey, keyCode);
 		}
 
 		public void UnregisterHotKey()
 		{
-			IO.UnregisterHotKey(Handle, WM_HOTKEY);
+			NativeMethods.UnregisterHotKey(Handle, WM_HOTKEY);
 		}
 
 		protected override void WndProc(ref Message m)
